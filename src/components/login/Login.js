@@ -71,14 +71,14 @@ const Login = () => {
 
     return (
         <>
-            <form className={styles.form} onSubmit={handleSubmit(submitData)}>
+            <form onSubmit={handleSubmit(submitData)}>
                 {errorMessage ? (
                     <p className={styles.error}>{errorMessage}</p>
                 ) : null}
 
                 <label className={styles.label} htmlFor="username">
                     <FontAwesomeIcon className={styles.icon} icon={faUser} />
-                    Usuário:
+                    Usuário
                 </label>
                 <input
                     className={styles.input}
@@ -92,7 +92,7 @@ const Login = () => {
 
                 <label className={styles.label} htmlFor="password">
                     <FontAwesomeIcon className={styles.icon} icon={faLock} />
-                    Senha:
+                    Senha
                 </label>
                 <input
                     className={styles.input}
