@@ -1,9 +1,7 @@
-import styles from "../../assets/styles/Footer.module.css"
+import styles from './Footer.module.scss';
 
 const Footer = () => {
-  return (
-    <footer className={styles.footer}>Footer</footer>
-  )
-}
+    return <footer className={styles.footer}>Footer</footer>;
+};
 
-export default Footer
+export default Footer;

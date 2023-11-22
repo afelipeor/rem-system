@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom';
 import Slider from '../slider/Slider';
-import styles from '../../assets/styles/AssetsCard.module.css';
+import styles from './AssetsCard.module.scss';
 
 const AssetsCard = ({
     //customkey,

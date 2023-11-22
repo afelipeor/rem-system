@@ -1,7 +1,7 @@
 import { Outlet } from 'react-router-dom';
-import styles from './PublicLayout.module.scss';
+import styles from './SubContainer.module.scss';
 
-const PublicLayout = () => {
+const SubContainer = () => {
     return (
         <main className={styles.container}>
             <Outlet />
@@ -9,4 +9,4 @@ const PublicLayout = () => {
     );
 };
 
-export default PublicLayout;
+export default SubContainer;
