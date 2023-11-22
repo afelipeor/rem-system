@@ -1,17 +1,25 @@
-import { useLocation, Navigate, Outlet } from "react-router-dom";
-import useGlobal from "./hooks/useGlobal";
+import { useLocation, Navigate, Outlet } from 'react-router-dom';
+import useGlobal from './hooks/useGlobal';
 
 const RequireAuth = ({ allowedRoles }) => {
-  const { auth } = useGlobal();
-  const location = useLocation();
+    const { auth } = useGlobal();
+    const location = useLocation();
 
-  return auth?.roles?.find((role) => allowedRoles?.includes(role)) ? (
-    <Outlet />
-  ) : auth?.username ? (
-    <Navigate to="/unauthorized" state={{ from: location }} replace />
-  ) : (
-    <Navigate to="/login" state={{ from: location }} replace />
-  );
+    return auth?.roles?.find(role => allowedRoles?.includes(role)) ? (
+        <Outlet />
+    ) : auth?.username ? (
+        <Navigate
+            to="/unauthorized"
+            state={{ from: location }}
+            replace
+        />
+    ) : (
+        <Navigate
+            to="/login"
+            state={{ from: location }}
+            replace
+        />
+    );
 };
 
 export default RequireAuth;
