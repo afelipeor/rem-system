@@ -9,6 +9,9 @@
     align-items: center;
     margin-bottom: 1rem;
 
+    &.success {
+        background-color: $green;
+    }
     &.info {
         background-color: $accent-blue;
     }

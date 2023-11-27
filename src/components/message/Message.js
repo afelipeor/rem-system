@@ -1,10 +1,17 @@
 import styles from './Message.module.scss';
-import { MdWarningAmber, MdErrorOutline, MdInfoOutline } from 'react-icons/md';
+import {
+    MdWarningAmber,
+    MdErrorOutline,
+    MdInfoOutline,
+    MdCheckCircleOutline,
+} from 'react-icons/md';
 import { MessageType } from '../../enums/message-type.enum';
 
 const Message = ({ type, message }) => {
     const setClassName = type => {
         switch (type) {
+            case MessageType.Success:
+                return `${styles.message} ${styles.success}`;
             case MessageType.Info:
                 return `${styles.message} ${styles.info}`;
             case MessageType.Warning:
@@ -17,6 +24,7 @@ const Message = ({ type, message }) => {
     };
     return (
         <div className={setClassName(type)}>
+            {type === MessageType.Success && <MdCheckCircleOutline />}
             {type === MessageType.Info && <MdInfoOutline />}
             {type === MessageType.Warning && <MdWarningAmber />}
             {type === MessageType.Error && <MdErrorOutline />}
