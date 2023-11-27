@@ -1,13 +1,14 @@
 import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
-import { faUser, faLock, faCheck } from '@fortawesome/free-solid-svg-icons';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { MdPerson, MdPassword } from 'react-icons/md';
 import styles from './Register.module.scss';
 import { MessageType } from '../../enums/message-type.enum';
 import Message from '../message/Message';
+import { useNavigate } from 'react-router-dom';
 
 const Register = () => {
+    const redirect = useNavigate();
     const {
         formState: { errors },
         handleSubmit,
@@ -54,6 +55,8 @@ const Register = () => {
                 reset();
                 setSuccess(true);
                 setMessage(responseData.message);
+                localStorage.setItem('token', responseData.token);
+                redirect('/home');
             }
         } catch (error) {
             if (error instanceof TypeError) {
@@ -76,10 +79,7 @@ const Register = () => {
                 ) : null}
                 <div className={styles.input_block}>
                     <label className={styles.label} htmlFor="username">
-                        <FontAwesomeIcon
-                            className={styles.icon}
-                            icon={faUser}
-                        />
+                        <MdPerson className={styles.icon} />
                         Usuário:
                     </label>
                     <input
@@ -103,10 +103,7 @@ const Register = () => {
                 </div>
                 <div className={styles.input_block}>
                     <label className={styles.label} htmlFor="password">
-                        <FontAwesomeIcon
-                            className={styles.icon}
-                            icon={faLock}
-                        />
+                        <MdPassword className={styles.icon} />
                         Senha:
                     </label>
                     <input
@@ -134,10 +131,7 @@ const Register = () => {
                         className={styles.label}
                         htmlFor="passwordConfirmation"
                     >
-                        <FontAwesomeIcon
-                            className={styles.icon}
-                            icon={faLock}
-                        />
+                        <MdPassword className={styles.icon} />
                         Confirme sua senha:
                     </label>
                     <input
