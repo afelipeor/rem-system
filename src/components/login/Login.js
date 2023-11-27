@@ -1,11 +1,12 @@
 import { useNavigate, useLocation, Link } from 'react-router-dom';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faUser, faLock } from '@fortawesome/free-solid-svg-icons';
 import { useState, useEffect } from 'react';
+import { MdPerson, MdPassword } from 'react-icons/md';
 import jwt_decode from 'jwt-decode';
 import useGlobal from '../../modules/hooks/useGlobal';
 import { useForm } from 'react-hook-form';
 import styles from './Login.module.scss';
+import { MessageType } from '../../enums/message-type.enum';
+import Message from '../message/Message';
 
 const Login = () => {
     const {
@@ -70,39 +71,52 @@ const Login = () => {
     };
 
     return (
-        <>
+        <div className={styles.login}>
             <form onSubmit={handleSubmit(submitData)}>
-                {errorMessage ? (
-                    <p className={styles.error}>{errorMessage}</p>
-                ) : null}
+                {errorMessage && (
+                    <Message type={MessageType.Error} message={errorMessage} />
+                )}
 
-                <label className={styles.label} htmlFor="username">
-                    <FontAwesomeIcon className={styles.icon} icon={faUser} />
-                    Usuário
-                </label>
-                <input
-                    className={styles.input}
-                    {...register('username', {
-                        required: 'Campo obrigatório',
-                    })}
-                    autoComplete="off"
-                    type="text"
-                />
-                <p className={styles.error}>{errors.username?.message}</p>
-
-                <label className={styles.label} htmlFor="password">
-                    <FontAwesomeIcon className={styles.icon} icon={faLock} />
-                    Senha
-                </label>
-                <input
-                    className={styles.input}
-                    {...register('password', {
-                        required: 'Campo obrigatório',
-                    })}
-                    autoComplete="off"
-                    type="password"
-                />
-                <p className={styles.error}>{errors.password?.message}</p>
+                <div className={styles.input_block}>
+                    <label className={styles.label} htmlFor="username">
+                        <MdPerson className={styles.icon} />
+                        Usuário
+                    </label>
+                    <input
+                        className={styles.input}
+                        {...register('username', {
+                            required: 'Campo obrigatório',
+                        })}
+                        autoComplete="off"
+                        type="text"
+                    />
+                    {errors.username?.message && (
+                        <Message
+                            type={MessageType.Error}
+                            message={errors.username.message}
+                        />
+                    )}
+                </div>
+                <div className={styles.input_block}>
+                    <label className={styles.label} htmlFor="password">
+                        <MdPassword className={styles.icon} />
+                        Senha
+                    </label>
+                    <input
+                        className={styles.input}
+                        {...register('password', {
+                            required: 'Campo obrigatório',
+                        })}
+                        autoComplete="off"
+                        type="password"
+                    />
+                    {errors.password?.message && (
+                        <Message
+                            type={MessageType.Error}
+                            message={errors.password.message}
+                        />
+                    )}
+                </div>
 
                 <div className={styles.button_wrapper}>
                     <button className={styles.button} type="submit">
@@ -113,13 +127,13 @@ const Login = () => {
 
             <div className={styles.register_wrapper}>
                 <p>
-                    Não se cadastrou?
+                    Ainda não tem cadastro?
                     <span>
-                        <Link to="/register">Cadastre-se</Link>
+                        <Link to="/register"> Criar novo cadastro</Link>
                     </span>
                 </p>
             </div>
-        </>
+        </div>
     );
 };
 

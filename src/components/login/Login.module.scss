@@ -1,5 +1,19 @@
 @import '../../assets/styles/forms';
 
-form {
+.login {
     width: 30rem;
+    position: absolute;
+    top: calc(50% - 15rem);
+    left: calc(50% - 15rem);
+
+    .button_wrapper {
+        justify-content: center;
+    }
+
+    .register_wrapper {
+        span {
+            text-transform: uppercase;
+            font-weight: 700;
+        }
+    }
 }
