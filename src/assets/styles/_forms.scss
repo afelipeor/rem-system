@@ -1,0 +1,61 @@
+@import './colors';
+@import './variables';
+@import './global';
+
+form {
+    border: $form-border;
+    border-radius: $border-radius;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    padding: 1.5rem;
+
+    .input_block {
+        display: flex;
+        flex-direction: column;
+        width: 100%;
+        margin-bottom: 1rem;
+
+        label {
+            display: flex;
+            margin-bottom: 0.5rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            font-family: $Rubik;
+            color: $black;
+            font-size: 1.1rem;
+
+            .icon {
+                margin-right: 0.5rem;
+            }
+        }
+
+        input {
+            border-radius: 0;
+            border: 1px solid $gold;
+            font-size: 1.1rem;
+            background-color: $white;
+            padding: 1rem 0.5rem 0.5rem;
+            font-weight: 700;
+            color: $blue;
+            box-shadow: none;
+            transition: box-shadow 0.5s ease-in-out;
+
+            &:focus {
+                outline: none;
+                box-shadow: 5px 5px 0px 2px $gold;
+            }
+        }
+    }
+
+    .button_wrapper {
+        width: 100%;
+        display: flex;
+        flex-direction: row;
+
+        .button {
+            width: 10rem;
+            height: 4rem;
+        }
+    }
+}

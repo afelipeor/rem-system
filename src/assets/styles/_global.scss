@@ -1,0 +1,25 @@
+@import './colors';
+
+a {
+    color: $accent-blue;
+
+    &:hover {
+        color: $blue;
+    }
+}
+
+button {
+    text-align: center;
+    border: none;
+    background-color: $black;
+    color: $white;
+    font-size: 1.1rem;
+    cursor: pointer;
+    box-shadow: none;
+    transition: box-shadow 0.5s ease-in-out;
+
+    &:hover {
+        outline: none;
+        box-shadow: 5px 5px 0px 2px $gold;
+    }
+}
