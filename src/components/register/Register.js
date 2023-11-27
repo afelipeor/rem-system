@@ -4,6 +4,8 @@ import { useForm } from 'react-hook-form';
 import { faUser, faLock, faCheck } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import styles from './Register.module.scss';
+import { MessageType } from '../../enums/message-type.enum';
+import Message from '../message/Message';
 
 const Register = () => {
     const {
@@ -63,77 +65,99 @@ const Register = () => {
     };
 
     return (
-        <>
+        <div className={styles.register}>
             <form className={styles.form} onSubmit={handleSubmit(submitData)}>
                 {message ? (
                     success ? (
-                        <p className={styles.success}>
-                            <FontAwesomeIcon
-                                className={styles.icon}
-                                icon={faCheck}
-                            />
-                            {message}
-                        </p>
+                        <Message type={MessageType.Success} message={message} />
                     ) : (
-                        <p className={styles.error}>{message}</p>
+                        <Message type={MessageType.Error} message={message} />
                     )
                 ) : null}
-
-                <label className={styles.label} htmlFor="username">
-                    <FontAwesomeIcon className={styles.icon} icon={faUser} />
-                    Usuário:
-                </label>
-                <input
-                    className={styles.input}
-                    {...register('username', {
-                        pattern: {
-                            value: /^[a-zA-Z]{8,15}$/,
-                            message: 'Somente letras. De 8 à 15 caracteres',
-                        },
-                        required: 'Campo obrigatório',
-                    })}
-                    autoComplete="off"
-                    type="text"
-                />
-                <p className={styles.error}>{errors.username?.message}</p>
-
-                <label className={styles.label} htmlFor="password">
-                    <FontAwesomeIcon className={styles.icon} icon={faLock} />
-                    Senha:
-                </label>
-                <input
-                    className={styles.input}
-                    {...register('password', {
-                        pattern: {
-                            value: /^(?=.*[a-zA-Z])(?=.*[0-9])(?=.*[!@#$%^&*])(?=.{5,10}$).*/,
-                            message:
-                                'Letras, números e caracteres especiais. De 5 à 15 caracteres',
-                        },
-                        required: 'Campo obrigatório',
-                    })}
-                    autoComplete="off"
-                    type="password"
-                />
-                <p className={styles.error}>{errors.password?.message}</p>
-
-                <label className={styles.label} htmlFor="passwordConfirmation">
-                    <FontAwesomeIcon className={styles.icon} icon={faLock} />
-                    Confirme sua senha:
-                </label>
-                <input
-                    className={styles.input}
-                    {...register('passwordConfirmation', {
-                        required: 'Campo obrigatório',
-                        validate: value =>
-                            value === passwordWatcher ||
-                            'As senhas não coincidem',
-                    })}
-                    autoComplete="off"
-                    type="password"
-                />
-                <p className={styles.error}>
-                    {errors.passwordConfirmation?.message}
-                </p>
+                <div className={styles.input_block}>
+                    <label className={styles.label} htmlFor="username">
+                        <FontAwesomeIcon
+                            className={styles.icon}
+                            icon={faUser}
+                        />
+                        Usuário:
+                    </label>
+                    <input
+                        className={styles.input}
+                        {...register('username', {
+                            pattern: {
+                                value: /^[a-zA-Z]{8,15}$/,
+                                message: 'Somente letras. De 8 à 15 caracteres',
+                            },
+                            required: 'Campo obrigatório',
+                        })}
+                        autoComplete="off"
+                        type="text"
+                    />
+                    {errors.username?.message && (
+                        <Message
+                            type={MessageType.Error}
+                            message={errors.username.message}
+                        />
+                    )}
+                </div>
+                <div className={styles.input_block}>
+                    <label className={styles.label} htmlFor="password">
+                        <FontAwesomeIcon
+                            className={styles.icon}
+                            icon={faLock}
+                        />
+                        Senha:
+                    </label>
+                    <input
+                        className={styles.input}
+                        {...register('password', {
+                            pattern: {
+                                value: /^(?=.*[a-zA-Z])(?=.*[0-9])(?=.*[!@#$%^&*])(?=.{5,10}$).*/,
+                                message:
+                                    'Letras, números e caracteres especiais. De 5 à 15 caracteres',
+                            },
+                            required: 'Campo obrigatório',
+                        })}
+                        autoComplete="off"
+                        type="password"
+                    />
+                    {errors.password?.message && (
+                        <Message
+                            type={MessageType.Error}
+                            message={errors.password.message}
+                        />
+                    )}
+                </div>
+                <div className={styles.input_block}>
+                    <label
+                        className={styles.label}
+                        htmlFor="passwordConfirmation"
+                    >
+                        <FontAwesomeIcon
+                            className={styles.icon}
+                            icon={faLock}
+                        />
+                        Confirme sua senha:
+                    </label>
+                    <input
+                        className={styles.input}
+                        {...register('passwordConfirmation', {
+                            required: 'Campo obrigatório',
+                            validate: value =>
+                                value === passwordWatcher ||
+                                'As senhas não coincidem',
+                        })}
+                        autoComplete="off"
+                        type="password"
+                    />
+                    {errors.passwordConfirmation?.message && (
+                        <Message
+                            type={MessageType.Error}
+                            message={errors.passwordConfirmation.message}
+                        />
+                    )}
+                </div>
 
                 <div className={styles.button_wrapper}>
                     <button className={styles.button} type="submit">
@@ -144,13 +168,13 @@ const Register = () => {
 
             <div className={styles.login_wrapper}>
                 <p>
-                    Já é cadastrado?
-                    <span>
-                        <Link to="/login">Login</Link>
+                    Já tem cadastro?
+                    <span className={styles.login_wrapper}>
+                        <Link to="/login"> Fazer Login</Link>
                     </span>
                 </p>
             </div>
-        </>
+        </div>
     );
 };
 
