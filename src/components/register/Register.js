@@ -8,7 +8,7 @@ import Message from '../message/Message';
 import { useNavigate } from 'react-router-dom';
 
 const Register = () => {
-    const redirect = useNavigate();
+    const navigate = useNavigate();
     const {
         formState: { errors },
         handleSubmit,
@@ -34,17 +34,20 @@ const Register = () => {
 
     const submitData = async data => {
         try {
-            const response = await fetch('http://localhost:3500/register', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                credentials: 'include',
-                body: JSON.stringify({
-                    username: data.username,
-                    password: data.password,
-                }),
-            });
+            const response = await fetch(
+                `${process.env.REACT_APP_SERVER_URL}/register`,
+                {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    credentials: 'include',
+                    body: JSON.stringify({
+                        username: data.username,
+                        password: data.password,
+                    }),
+                }
+            );
             const responseData = await response?.json();
             if (!response?.ok) {
                 setSuccess(false);
@@ -56,7 +59,7 @@ const Register = () => {
                 setSuccess(true);
                 setMessage(responseData.message);
                 localStorage.setItem('token', responseData.token);
-                redirect('/home');
+                navigate('/', { replace: true });
             }
         } catch (error) {
             if (error instanceof TypeError) {

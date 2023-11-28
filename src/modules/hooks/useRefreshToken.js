@@ -1,20 +1,24 @@
-import useGlobal from './useGlobal'
+import useGlobal from './useGlobal';
 
 const useRefreshToken = () => {
-    const {setAuth} = useGlobal();
+    const { setAuth } = useGlobal();
 
     const refresh = async () => {
-        const response = await fetch("http://localhost:3500/refresh", {
-            method: "GET",
-            credentials: "include"
-        });
+        const response = await fetch(
+            `${process.env.REACT_APP_SERVER_URL}/refresh`,
+            {
+                method: 'GET',
+                credentials: 'include',
+            }
+        );
         const responseData = await response?.json();
+        console.log('responseData:', responseData);
         setAuth(prev => {
-            return {...prev, accessToken: responseData.accessToken}
+            return { ...prev, accessToken: responseData.accessToken };
         });
         return responseData.accessToken;
-    }
-  return refresh
-}
+    };
+    return refresh;
+};
 
-export default useRefreshToken
+export default useRefreshToken;
