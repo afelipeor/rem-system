@@ -1,7 +1,6 @@
 import { useNavigate, useLocation, Link } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 import { MdPerson, MdPassword } from 'react-icons/md';
-import jwt_decode from 'jwt-decode';
 import useGlobal from '../../modules/hooks/useGlobal';
 import { useForm } from 'react-hook-form';
 import styles from './Login.module.scss';
@@ -15,14 +14,13 @@ const Login = () => {
         register,
         reset,
     } = useForm({
-        defaultValues: { username: 'Moraesandre', password: '@Lvaro1955' },
         mode: 'onTouched',
     });
     const { setAuth, setRoles } = useGlobal();
     const [errorMessage, setErrorMessage] = useState('');
     const navigate = useNavigate();
     const location = useLocation();
-    const destiny = location.state?.from?.pathname || '/';
+    const redirectTo = location.state?.from?.pathname || '/';
 
     useEffect(() => {
         setTimeout(() => {
@@ -32,14 +30,18 @@ const Login = () => {
 
     const submitData = async data => {
         try {
-            const response = await fetch('http://localhost:3500/auth', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                credentials: 'include',
-                body: JSON.stringify(data),
-            });
+            data.token = localStorage.getItem('token');
+            const response = await fetch(
+                `${process.env.REACT_APP_SERVER_URL}/auth`,
+                {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    credentials: 'include',
+                    body: JSON.stringify(data),
+                }
+            );
             if (!response?.ok) {
                 const responseData = await response?.json();
                 if ([400, 401, 500].includes(response?.status)) {
@@ -47,19 +49,18 @@ const Login = () => {
                 }
             } else {
                 const responseData = await response?.json();
-                const accessToken = responseData?.accessToken;
-                const decodedToken = jwt_decode(accessToken);
-                const roles = decodedToken?.userInfo?.userRoles;
-                const rolesList = decodedToken?.serverInfo?.serverRolesList;
+                const userData = responseData.userData;
+                const roles = userData?.roles;
+                const rolesList = responseData?.rolesList;
                 setAuth({
-                    username: data.username,
-                    password: data.password,
+                    username: userData.username,
+                    password: userData.password,
                     roles,
-                    accessToken,
+                    accessToken: userData.refreshToken,
                 });
                 setRoles(rolesList);
                 reset();
-                navigate(destiny, { replace: true });
+                navigate(redirectTo, { replace: true });
             }
         } catch (error) {
             if (error instanceof TypeError) {
