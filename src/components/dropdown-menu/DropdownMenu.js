@@ -5,22 +5,18 @@ import { useEffect, useRef, useState } from 'react';
 
 const DropdownMenu = ({ menuItems }) => {
     const dropdownMenu = useRef(null);
-    const [classes, setClasses] = useState('');
-    const [parentPull, setParentPull] = useState(null);
+    const [classes, setClass] = useState('');
 
     useEffect(() => {
         const viewport = dropdownMenu.current.getBoundingClientRect();
-        console.log('viewport:', viewport.height);
         const windowView = document.documentElement.getBoundingClientRect();
-        const parentWidth =
-            dropdownMenu.current.parentElement.getBoundingClientRect().width;
         const pull =
             viewport.width + viewport.right > windowView.width
                 ? styles.pull_left
                 : viewport.left > 0
                 ? styles.pull_right
                 : '';
-        setClasses(`${styles.menu} ${pull}`);
+        setClass(`${pull}`);
     }, []);
     const list = menuItems.map((item, index) => {
         return (
@@ -33,7 +29,7 @@ const DropdownMenu = ({ menuItems }) => {
         );
     });
     return (
-        <div className={classes} style={parentPull} ref={dropdownMenu}>
+        <div className={[styles.menu, classes].join(' ')} ref={dropdownMenu}>
             <MdKeyboardArrowUp className={styles.arrow} />
             <ul className={styles.dropdown_content}>{list}</ul>
         </div>
