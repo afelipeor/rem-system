@@ -5,56 +5,71 @@
     position: sticky;
     display: flex;
     align-items: center;
+    justify-content: space-between;
     box-shadow: 0 0 5px 0 $light-gold;
     height: 5rem;
-    overflow: hidden;
+    width: 100%;
 
-    .main_navigation,
-    .logo_container,
-    .profile {
-        display: inherit;
-        height: inherit;
-    }
-
-    .link {
-        height: inherit;
-        font-size: 1.1rem;
-        text-transform: uppercase;
-        justify-content: center;
-        align-items: center;
+    .container {
         display: flex;
-        text-decoration: none;
-        width: 10rem;
-        color: $black;
-        background-color: transparent;
-        transition: all 0.5s ease-in-out;
+        height: inherit;
 
-        &:hover,
-        &:active {
-            font-weight: 700;
-            background-color: $light-gold;
+        .main_navigation,
+        .logo_container,
+        .profile {
+            display: inherit;
+            height: inherit;
         }
 
-        &.logo {
-            font-size: 3rem;
-            width: initial;
-            padding: 0 1rem;
-            color: $pink;
+        .link {
+            height: inherit;
+            font-size: 1.1rem;
+            text-transform: uppercase;
+            justify-content: center;
+            align-items: center;
+            display: flex;
+            text-decoration: none;
+            width: 10rem;
+            color: $black;
+            background-color: transparent;
+            transition: all 0.5s ease-in-out;
 
-            &:hover {
-                .icon {
-                    transform: scale(1.2, 1.2);
+            &:hover,
+            &:active {
+                font-weight: 700;
+                background-color: $light-gold;
+            }
+
+            &.logo {
+                font-size: 3rem;
+                width: initial;
+                padding: 0 1rem;
+                color: $pink;
+
+                &:hover {
+                    .icon {
+                        transform: scale(1.2, 1.2);
+                    }
                 }
             }
-        }
 
-        .icon {
-            transition: transform 0.5s ease-in-out;
-            margin-right: 0.5rem;
+            .icon {
+                transition: transform 0.5s ease-in-out;
+                margin-right: 0.5rem;
+            }
         }
     }
-
     .profile {
-        justify-self: flex-end;
+        display: flex;
+        justify-self: end;
+        align-items: center;
+        height: inherit;
+        margin-right: 1rem;
+
+        .profile_button {
+            width: 4rem;
+            height: 4rem;
+            border-radius: 50%;
+        }
     }
 }
