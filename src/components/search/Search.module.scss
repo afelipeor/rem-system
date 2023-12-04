@@ -1,0 +1,68 @@
+@import '../../assets/styles/colors';
+
+.searchbar {
+    display: flex;
+    flex-direction: row;
+    margin: 0 1rem;
+    position: relative;
+
+    .icon_button {
+        background-color: transparent;
+        font-size: 2.5rem;
+        color: $black;
+
+        &:hover {
+            box-shadow: none;
+
+            .icon {
+                filter: drop-shadow(4px 4px 1px $gold);
+            }
+        }
+
+        .icon {
+            transition: filter 0.2s ease-in-out;
+        }
+    }
+
+    label {
+        &.label {
+            &::after {
+                content: '';
+            }
+        }
+        &.label_active {
+            &::after {
+                content: '\21A9';
+                font-size: 2rem;
+                position: relative;
+                z-index: 1;
+                line-height: 3rem;
+                color: $blue;
+            }
+        }
+
+        input {
+            border-radius: 0;
+            border: 1px solid $gold;
+            font-size: 1.1rem;
+            background-color: $white;
+            padding: 1rem 0.5rem 0.5rem;
+            font-weight: 700;
+            color: $blue;
+            transition: width 0.5s ease-in-out, visibility 0.5s ease-in-out;
+            display: flex;
+            position: absolute;
+            right: 3rem;
+            outline: none;
+
+            &.input {
+                width: 0%;
+                padding: 1rem 0 0.5rem;
+                visibility: hidden;
+            }
+            &.input_active {
+                width: 15rem;
+            }
+        }
+    }
+}

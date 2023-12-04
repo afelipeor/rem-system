@@ -2,8 +2,9 @@ import { useEffect, useState } from 'react';
 import useFetchPrivate from '../../modules/hooks/useFetchPrivate';
 import AssetsCard from '../card/AssetsCard';
 import styles from './Assets.module.scss';
+import Toolbar from '../toolbar/Toolbar';
 
-const Assets = () => {
+const Assets = ({ config }) => {
     const [assets, setAssets] = useState([]);
     const [message, setMessage] = useState('');
     const [occurredError, setOccurredError] = useState(false);
@@ -16,7 +17,7 @@ const Assets = () => {
         const getAssets = async () => {
             try {
                 const response = await fetchPrivate(
-                    'http://localhost:3500/assets',
+                    `${process.env.REACT_APP_SERVER_URL}/assets`,
                     {
                         method: 'GET',
                         signal: controller.signal,
@@ -60,36 +61,39 @@ const Assets = () => {
     console.log(assets);
 
     return (
-        <div className={styles.main}>
-            {/* {occurredError ? (
+        <>
+            <Toolbar config={config} />
+            <div className={styles.main}>
+                {/* {occurredError ? (
         <p>{message}</p>
       ) : message ? (
         <p>{message}</p>
       ) : ( */}
-            <>
-                {assets.map(asset => (
-                    <AssetsCard
-                        key={asset.code}
-                        images={asset.images}
-                        type={asset.type}
-                        street={asset.street}
-                        neighborhood={asset.neighborhood}
-                        state={asset.state}
-                        size={asset.size}
-                        bedrooms={asset.bedrooms}
-                        parkingSpaces={asset.parkingSpaces}
-                        selling={asset.selling}
-                        rental={asset.rental}
-                        sellingPrice={asset.sellingPrice}
-                        rentalPrice={asset.rentalPrice}
-                        monthlyCondominium={asset.monthlyCondominium}
-                        published={asset.published}
-                        code={asset.code}
-                    />
-                ))}
-            </>
-            {/* )} */}
-        </div>
+                <>
+                    {assets.map(asset => (
+                        <AssetsCard
+                            key={asset.code}
+                            images={asset.images}
+                            type={asset.type}
+                            street={asset.street}
+                            neighborhood={asset.neighborhood}
+                            state={asset.state}
+                            size={asset.size}
+                            bedrooms={asset.bedrooms}
+                            parkingSpaces={asset.parkingSpaces}
+                            selling={asset.selling}
+                            rental={asset.rental}
+                            sellingPrice={asset.sellingPrice}
+                            rentalPrice={asset.rentalPrice}
+                            monthlyCondominium={asset.monthlyCondominium}
+                            published={asset.published}
+                            code={asset.code}
+                        />
+                    ))}
+                </>
+                {/* )} */}
+            </div>
+        </>
     );
 };
 

@@ -32,10 +32,58 @@ function App() {
                 <Route path="/" element={<MainLayout />}>
                     <Route index element={<Home />} />
                     <Route path="/assets" element={<AssetsLayout />}>
-                        <Route index element={<Assets />} />
-                        <Route path="/assets/newasset" element={<NewAsset />} />
-                        <Route path="/assets/search" element={<Search />} />
-                        <Route path="/assets/:code" element={<AssetByCode />} />
+                        <Route
+                            index
+                            element={
+                                <Assets
+                                    config={{
+                                        title: 'Imóveis',
+                                        showToolbar: true,
+                                        showSearch: true,
+                                        showAdd: true,
+                                    }}
+                                />
+                            }
+                        />
+                        <Route
+                            path="/assets/newasset"
+                            element={
+                                <NewAsset
+                                    config={{
+                                        title: 'Criar nova listagem',
+                                        showToolbar: true,
+                                        showSearch: false,
+                                        showAdd: true,
+                                    }}
+                                />
+                            }
+                        />
+                        <Route
+                            path="/assets/search"
+                            element={
+                                <Search
+                                    config={{
+                                        title: 'Buscar por imóvel',
+                                        showToolbar: true,
+                                        showSearch: true,
+                                        showAdd: false,
+                                    }}
+                                />
+                            }
+                        />
+                        <Route
+                            path="/assets/:code"
+                            element={
+                                <AssetByCode
+                                    config={{
+                                        title: '',
+                                        showToolbar: true,
+                                        showSearch: true,
+                                        showAdd: true,
+                                    }}
+                                />
+                            }
+                        />
                     </Route>
                     <Route path="clients" element={<Clients />} />
                     <Route path="manager" element={<Manager />} />

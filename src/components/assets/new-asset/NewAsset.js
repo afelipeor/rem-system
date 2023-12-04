@@ -103,21 +103,18 @@ const NewAsset = () => {
     const [enumValues, setEnumValues] = useState([]);
     const fetchPrivate = useFetchPrivate();
     const { auth } = useGlobal();
-
+    const newAssetUrl = `${process.env.REACT_APP_SERVER_URL}/assets/newasset`;
     useEffect(() => {
         let mounted = true;
         const controller = new AbortController();
 
         const getAssetsEnum = async () => {
             try {
-                const response = await fetchPrivate(
-                    'http://localhost:3500/assets/newasset',
-                    {
-                        method: 'GET',
-                        signal: controller.signal,
-                        credentials: 'include',
-                    }
-                );
+                const response = await fetchPrivate(newAssetUrl, {
+                    method: 'GET',
+                    signal: controller.signal,
+                    credentials: 'include',
+                });
                 const responseData = await response.json();
                 if (!response.ok) {
                     setOccurredError(true);
@@ -178,18 +175,15 @@ const NewAsset = () => {
         const controller = new AbortController();
 
         try {
-            const response = await fetchPrivate(
-                'http://localhost:3500/assets/newasset',
-                {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                    },
-                    body: JSON.stringify(data),
-                    signal: controller.signal,
-                    credentials: 'include',
-                }
-            );
+            const response = await fetchPrivate(newAssetUrl, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(data),
+                signal: controller.signal,
+                credentials: 'include',
+            });
             const responseData = await response.json();
             console.log(responseData);
             if (!response.ok) {
