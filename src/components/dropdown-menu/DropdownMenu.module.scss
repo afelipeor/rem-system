@@ -1,0 +1,65 @@
+@import '../../assets/styles/colors';
+
+.menu {
+    position: absolute;
+    z-index: 1000;
+    display: flex;
+    flex-direction: column;
+    transform: translate(-25%, calc(50% + 2rem));
+
+    &.pull_left {
+        transform: translate(calc(-75% + 1rem), calc(50% + 2rem));
+        .arrow {
+            align-self: flex-end;
+        }
+    }
+    &.pull_right {
+        transform: translate(calc(25% - 0.5rem), calc(50% + 2rem));
+        .arrow {
+            align-self: flex-start;
+        }
+    }
+
+    .arrow {
+        font-size: 2rem;
+        align-self: center;
+    }
+
+    ul {
+        background-color: $white;
+        box-shadow: 0 5px 5px 0 $light-gold;
+        flex-direction: column;
+        display: flex;
+        margin: 0px;
+        padding: 0px;
+
+        li {
+            display: flex;
+            width: auto;
+            height: auto;
+
+            &:not(:nth-last-of-type(1)) {
+                border-bottom: 1px solid $light-gold;
+            }
+
+            .link {
+                display: flex;
+                padding: 1rem;
+                min-width: 6rem;
+                flex-direction: row;
+                align-items: center;
+                text-decoration: none;
+                color: $black;
+                transition: background-color 0.5s ease-in-out;
+
+                &:hover {
+                    background-color: $light-gold;
+                }
+
+                svg {
+                    margin-right: 0.5rem;
+                }
+            }
+        }
+    }
+}
