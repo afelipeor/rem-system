@@ -13,6 +13,7 @@ import NewAsset from './components/assets/new-asset/NewAsset';
 import Search from './components/search/Search';
 import Clients from './components/clients/Clients';
 import Manager from './components/manager/Manager';
+import Logout from './components/logout/Logout';
 
 function App() {
     const { roles } = useGlobal();
@@ -22,6 +23,7 @@ function App() {
             {/*Public routes */}
             <Route element={<PublicLayout />}>
                 <Route path="/login" element={<Login />} />
+                <Route path="/logout" element={<Logout />} />
                 <Route path="/register" element={<Register />} />
             </Route>
 
