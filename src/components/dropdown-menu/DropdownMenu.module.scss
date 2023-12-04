@@ -8,11 +8,13 @@
     transform: translate(-25%, calc(50% + 2rem));
 
     &.pull_left {
+        transform: translate(calc(-75% + 1rem), calc(50% + 2rem));
         .arrow {
             align-self: flex-end;
         }
     }
     &.pull_right {
+        transform: translate(calc(25% - 0.5rem), calc(50% + 2rem));
         .arrow {
             align-self: flex-start;
         }

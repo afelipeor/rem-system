@@ -21,18 +21,6 @@ const DropdownMenu = ({ menuItems }) => {
                 ? styles.pull_right
                 : '';
         setClasses(`${styles.menu} ${pull}`);
-        setParentPull({
-            transform:
-                viewport.width + viewport.right > windowView.width
-                    ? `translate(-${parentWidth * 0.5 - 5}px, ${
-                          viewport.height * 0.75 + 32
-                      }px)`
-                    : viewport.left > 0
-                    ? `translate(${parentWidth * 0.5}px, ${
-                          viewport.height * 0.75 + 32
-                      }px)`
-                    : {},
-        });
     }, []);
     const list = menuItems.map((item, index) => {
         return (
